@@ -1,0 +1,229 @@
+.control-buttons {
+  margin: 10px;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.control-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #fff, #ccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.current-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.mode-tag {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.mode-tag.inspecting {
+  background: var(--success-color);
+  color: white;
+}
+
+.mode-tag.charging {
+  background: var(--warning-color);
+  color: white;
+}
+
+.mode-tag.paused {
+  background: #6b7280;
+  color: white;
+}
+
+.mode-tag.emergency {
+  background: var(--error-color);
+  color: white;
+  animation: emergency-pulse 1s infinite;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--card-bg), #2d3e50);
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:hover:not(:disabled)::before {
+  background: var(--primary-color);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 特定按钮样式 */
+.control-btn.charge:hover:not(:disabled)::before {
+  background: var(--success-color);
+}
+
+.control-btn.pause:hover:not(:disabled)::before {
+  background: var(--warning-color);
+}
+
+.control-btn.emergency:hover:not(:disabled)::before {
+  background: var(--error-color);
+}
+
+.control-btn.reboot:hover:not(:disabled)::before {
+  background: var(--primary-color);
+}
+
+.control-btn.resume:hover:not(:disabled)::before {
+  background: var(--success-color);
+}
+
+/* 紧急停止按钮特殊样式 */
+.control-btn.emergency {
+  background: linear-gradient(135deg, #ff4d4f, #d63031);
+  border-color: #ff4d4f;
+}
+
+.control-btn.emergency:hover:not(:disabled) {
+  box-shadow: 0 4px 20px rgba(255, 77, 79, 0.4);
+}
+
+.btn-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+.btn-subtext {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+/* 加载状态 */
+.control-btn.loading {
+  pointer-events: none;
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 操作状态提示 */
+.operation-status {
+  min-height: 20px;
+}
+
+.status-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(24, 144, 255, 0.1);
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  animation: dot-pulse 1.5s infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes emergency-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .button-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .control-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .control-btn {
+    padding: 12px 8px;
+  }
+}

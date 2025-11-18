@@ -1,0 +1,308 @@
+.alarm-list {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.alarm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.header-title h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #fff, #ccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.alarm-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.unhandled-badge {
+  background: var(--error-color);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  animation: badge-pulse 2s infinite;
+}
+
+.header-stats {
+  font-size: 0.9rem;
+}
+
+.stats-text {
+  color: #ccc;
+}
+
+.stats-count {
+  color: var(--error-color);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.alarm-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #ccc;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.7;
+}
+
+.empty-text {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.empty-subtext {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.alarm-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alarm-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.alarm-item.unhandled {
+  border-left: 4px solid;
+  animation: alert-glow 3s infinite;
+}
+
+.alarm-item.unhandled.emergency {
+  border-left-color: var(--error-color);
+  background: rgba(255, 77, 79, 0.1);
+}
+
+.alarm-item.unhandled.normal {
+  border-left-color: var(--warning-color);
+  background: rgba(250, 173, 20, 0.1);
+}
+
+.alarm-item.unhandled.info {
+  border-left-color: var(--primary-color);
+  background: rgba(24, 144, 255, 0.1);
+}
+
+.alarm-item.handled {
+  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+}
+
+.alarm-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.alarm-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.alarm-icon-level {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.alarm-details {
+  flex: 1;
+}
+
+.alarm-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.alarm-level-tag {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.alarm-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.alarm-time, .alarm-sensor {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.handle-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--success-color), #389e0d);
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.handle-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.4);
+}
+
+.handle-button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.handle-button.handled {
+  background: #666;
+}
+
+.button-icon {
+  font-size: 0.9rem;
+}
+
+/* 告警指示器 */
+.alarm-indicator {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--error-color);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 10;
+  animation: slide-in 0.5s ease-out;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: dot-pulse 1.5s infinite;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  animation: ring-pulse 2s infinite;
+}
+
+/* 动画定义 */
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes alert-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 77, 79, 0); }
+  50% { box-shadow: 0 0 20px rgba(255, 77, 79, 0.3); }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes ring-pulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .alarm-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .alarm-main {
+    width: 100%;
+  }
+  
+  .handle-button {
+    align-self: flex-end;
+  }
+  
+  .alarm-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

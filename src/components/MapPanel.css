@@ -1,0 +1,353 @@
+.map-panel.tech-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-panel.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 16px 16px 0 0;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+.map-header h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.map-header h3::before {
+  content: '🗺️';
+  font-size: 24px;
+}
+
+.map-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.map-controls .control-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.map-controls .control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.map-controls .control-btn:active {
+  transform: translateY(0);
+}
+
+.map-scale {
+  font-size: 12px;
+  color: #718096;
+  background: #f7fafc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.map-container {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.map-container::before {
+  content: '机房平面图';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #4a5568;
+  z-index: 10;
+  font-weight: 600;
+}
+
+.map-svg {
+  display: block;
+  background: linear-gradient(45deg, #f8fafc 25%, transparent 25%), 
+              linear-gradient(-45deg, #f8fafc 25%, transparent 25%), 
+              linear-gradient(45deg, transparent 75%, #f8fafc 75%), 
+              linear-gradient(-45deg, transparent 75%, #f8fafc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* 地图区域样式优化 */
+.map-area {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.map-area:hover {
+  fill: rgba(102, 126, 234, 0.1);
+  stroke: #667eea;
+  stroke-width: 3;
+  filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+  transform: scale(1.02);
+}
+
+.map-area text {
+  pointer-events: none;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* 路径样式优化 */
+.map-svg polyline {
+  stroke: #cbd5e0;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* 机器人标记优化 */
+.robot-marker {
+  fill: #ff6b6b;
+  stroke: #ffffff;
+  stroke-width: 3;
+  filter: drop-shadow(0 2px 8px rgba(255, 107, 107, 0.4));
+  animation: robotFloat 3s ease-in-out infinite;
+}
+
+.robot-marker::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255, 107, 107, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: ripple 2s linear infinite;
+}
+
+/* 目标标记优化 */
+.target-marker {
+  fill: none;
+  stroke: #48bb78;
+  stroke-width: 3;
+  filter: drop-shadow(0 2px 8px rgba(72, 187, 120, 0.4));
+}
+
+/* 地图信息面板优化 */
+.map-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-top: 8px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+}
+
+.info-item .label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-item .label::before {
+  content: '•';
+  color: #667eea;
+  font-size: 16px;
+}
+
+.info-item .value {
+  color: #2d3748;
+  font-size: 13px;
+  font-weight: 600;
+  background: #f7fafc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+/* 动画优化 */
+@keyframes robotFloat {
+  0%, 100% { 
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-3px) scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1;
+    r: 8;
+  }
+  50% { 
+    opacity: 0.8;
+    r: 9;
+  }
+}
+
+@keyframes targetPulse {
+  0%, 100% { 
+    opacity: 1;
+    r: 6;
+    stroke-width: 3;
+  }
+  50% { 
+    opacity: 0.5;
+    r: 8;
+    stroke-width: 2;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* 区域颜色编码 */
+.map-area[data-area-type="server"] {
+  fill: rgba(102, 126, 234, 0.1);
+  stroke: #667eea;
+}
+
+.map-area[data-area-type="network"] {
+  fill: rgba(72, 187, 120, 0.1);
+  stroke: #48bb78;
+}
+
+.map-area[data-area-type="storage"] {
+  fill: rgba(237, 137, 54, 0.1);
+  stroke: #ed8936;
+}
+
+.map-area[data-area-type="power"] {
+  fill: rgba(245, 101, 101, 0.1);
+  stroke: #f56565;
+}
+
+.map-area[data-area-type="charging"] {
+  fill: rgba(159, 122, 234, 0.1);
+  stroke: #9f7aea;
+}
+
+/* 响应式设计优化 */
+@media (max-width: 768px) {
+  .map-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .map-controls {
+    justify-content: space-between;
+  }
+  
+  .map-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .map-panel.tech-card {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border-color: #4a5568;
+  }
+  
+  .map-header h3 {
+    color: #e2e8f0;
+  }
+  
+  .map-container {
+    border-color: #4a5568;
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  }
+  
+  .map-svg {
+    background: linear-gradient(45deg, #2d3748 25%, transparent 25%), 
+                linear-gradient(-45deg, #2d3748 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #2d3748 75%), 
+                linear-gradient(-45deg, transparent 75%, #2d3748 75%);
+  }
+}
