@@ -4,7 +4,7 @@ An industrial-grade robot monitoring platform built with **React 18 + TypeScript
 
 
 ### 📸 System Preview  
-(Insert a screenshot of the system here, e.g.)  ./screenshot.png
+./screenshot.png
 
 ### 🛠️ Technology Stack  
 - **Frontend Framework**: React 18 + TypeScript  
